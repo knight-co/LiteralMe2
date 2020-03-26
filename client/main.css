@@ -2,3 +2,23 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.imgholder{
+	margin-bottom: 10px;
+	height: 350px;
+}
+
+.litbooks{
+	height:250px;
+	overflow: hidden;
+}
+
+.edcolor{
+	color:blue;
+	font-size: 3em;
+}
+
+.vcolor{
+	color:purple;
+	font-size: 3em;
+}

@@ -7,8 +7,26 @@
     {{> navBar}}
     {{> mainBody}}
     {{> footerBar}}
+    
   </div>
 </body>
+
+<template name="myLibrary">
+  <div class="row">
+    {{#each allBooks}}
+      <div class="col-4" id={{_id}}>
+        <div class= "Uniform">
+          <img src="{{path}}" class="litbooks">
+        </div>
+        <!-- <i class="fa fa-eye vcolor js-view"></i> -->
+        <!-- <i class="fa fa-pencil edcolor js-edit"></i> -->
+        <h3>{{Title}}</h3>
+        <h3>{{Author}}</h3>
+        <h4>{{Desc}}</h4>
+      </div>
+    {{/each}}
+  </div>  
+</template>
 
 <template name="navBar">
   <header>
@@ -51,9 +69,64 @@
       <p>
         <a href="#" class="btn btn-primary my-2">Top Rated Book</a>
       </p>
+      {{>addBook}}
     </div>
   </section>
 </template>
+
+<template name= "addBook">
+  <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addBookModal"> Add a BOOK!</button>
+
+<!-- Modal -->
+<div class="modal fade" id="addBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <img class = "imgholder" src="imgplaceholder.png" alt="">
+         <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Title</span>
+            </div>
+            <input type="text" class="form-control" id="Title" placeholder="Provide a Title"   aria-label="Provide a Title" aria-describedby="basic-addon1">
+          </div> <!-- Title -->
+                    <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Author</span>
+            </div>
+            <input type="text" class="form-control" id="Author" placeholder="Provide an Author"  aria-label="Sizing example input" aria-describedby="basic-addon1">
+          </div> <!-- Author -->
+                    <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">Description</span>
+            </div>
+            <input type="text" class="form-control" id="Desc" aria-label="Provide a Description" aria-describedby="basic-addon1">
+          </div> <!-- Description -->
+              <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Path</span>
+              </div>
+              <input type="text" class="form-control" id="Path" placeholder="Provide a Path"   aria-label="Provide a Path" aria-describedby="basic-addon1">
+            </div> <!-- Path -->
+
+        </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary js-close" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary js-save">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+</template>
+
 
 <template name="mainBody">
   <main role="main">
@@ -63,55 +136,75 @@
         <div class="row">
           <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
-              <img src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"348"%20height%3D"225"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20348%20225"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_1697acec537%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_1697acec537"><rect%20width%3D"348"%20height%3D"225"%20fill%3D"%2355595c"><%2Frect><g><text%20x%3D"116.7265625"%20y%3D"120.3">Thumbnail<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="temp photo">
+              <img src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"348"%20height%3D"225"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20348%20225"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_1697acec537%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_1697acec537"><rect%20width%3D"348"%20height%3D"225"%20fill%3D"%2355595c"><%2Frect><g><text%20x%3D"116.7265625"%20y%3D"120.3">Thumbnail<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="temp photo" id="imgThumb" class="thumbtemp">
               <div class="card-body">
                 <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
+                    <button type="button" class="btn btn-sm btn-outline-secondary js-edit">Edit</button>
+                 </div>
                   <small class="text-muted">9 mins</small>
                 </div>
               </div>
             </div>
           </div> <!-- /col -->
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"348"%20height%3D"225"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20348%20225"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_1697acec537%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_1697acec537"><rect%20width%3D"348"%20height%3D"225"%20fill%3D"%2355595c"><%2Frect><g><text%20x%3D"116.7265625"%20y%3D"120.3">Thumbnail<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="temp photo">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div> <!-- /col -->
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"348"%20height%3D"225"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20348%20225"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_1697acec537%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_1697acec537"><rect%20width%3D"348"%20height%3D"225"%20fill%3D"%2355595c"><%2Frect><g><text%20x%3D"116.7265625"%20y%3D"120.3">Thumbnail<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="temp photo">
-              <div class="card-body">
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                  </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div> <!-- /col -->
+          
         </div> <!-- /row for all cards -->
       </div>
     </div>
 
   </main>
 </template>
+
+<template name= "editBook">
+<!-- Modal -->
+<div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Edit Book Info</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <img class = "eholder" src="imgplaceholder.png" alt="">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Title</span>
+          </div> 
+          <input type="text" class="form-control" id="eTitle" placeholder="Provide a Title" aria-label="Provide a Title" aria-describedby="basic-addon1">
+        </div><!-- Title-->
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Author</span>
+          </div>
+          <input type="text" class="form-control" id="eAuthor" placeholder="Provide an Author" aria-label="Provide an Author" aria-describedby="basic-addon1">
+        </div><!-- Author-->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">Description</span>
+                </div>
+                <textarea class="form-control" id="eDesc" aria-label="Provide a Description"></textarea>
+              </div> <!--Description-->
+              <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Path</span>
+          </div>
+          <input type="text" class="form-control" id="ePath" placeholder="Provide a Path" aria-label="Provide a Path" aria-describedby="basic-addon1">
+        </div><!-- Path-->
+              <!-- <input id="edID" type="hidden"> -->
+      </div> <!--Modal Body-->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary js-closeMe" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary js-addMe">Save changes</button>
+      </div> <!--Save changes and close-->
+    </div>
+  </div>
+</div>
+</template>
+
 
 <template name="footerBar">
   <footer class="text-muted">
