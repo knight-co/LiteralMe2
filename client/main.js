@@ -15,23 +15,21 @@ Template.addBook.events({
 		var theAuthor =$('#Author').val();
 		var theDesc =$('#Desc').val();
 		var thePath =$('#Path').val();
-		var theThumb =$('#imgThumb').val();
-
+		var theThumb =$('.thumbtemp').val();
 
 		litbooksdb.insert({
 			"Title": theTitle,
 			"Path": thePath,
 			"Author": theAuthor,
 			"Desc": theDesc,
-			"imgThumb": theThumb
 		});
 		console.log("saving..");
 	  	$("#addBookModal").modal("hide");
-	  	$("#Title").val("");
-	  	$("#Path").val("");
-	  	$("#Desc").val("");
-	  	$("#Author").val("");
-	  	$(".imgholder").attr("src","imgplaceholder.png");
+	  	// $("#Title").val("");
+	  	// $("#Path").val("");
+	    // $("#Desc").val("");
+	  	// $("#Author").val("");
+	  	// $(".imgholder").attr("src","imgplaceholder.png");
 	},
 
 	'click .js-close'(event, instance){
@@ -47,14 +45,16 @@ Template.addBook.events({
 
 Template.mainBody.events({
 	'click js-edit'(event, instance){
+	console.log("editing..");
 	$("#editBookModal").modal("show");
+	
     var myId = this._id;
     console.log("Let's Edit " +  myId);
     var edTitle = litbooksdb.findOne({_id:myId}).Title;
     var edPath = litbooksdb.findOne({_id:myId}).Path;
     var edDesc = litbooksdb.findOne({_id:myId}).Desc;
     var edAuthor = litbooksdb.findOne({_id:myId}).Author;
-    // $("edID").val(myId);
+    $("edID").val(myId);
     $("#eTitle").val(edTitle);
     $("#ePath").val(edPath);
     $("#eDesc").val(edDesc);
@@ -80,6 +80,12 @@ Template.mainBody.events({
 			}}
 		);
 	},
+
+	'click .js-view'(event, instance){
+      	console.log("Viewing...");
+      	var myId = this._id;
+      	var viewTitle = litbooksdb.findOne();
+	}
 
 });
 
