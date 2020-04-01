@@ -42,15 +42,28 @@ Template.addBook.events({
   		$(".imgholder").attr("src",$("#Path").val());
   		$(".thumbtemp").attr("src",$("#Path").val());
   		console.log($("#Path").val());
-  	}, 		 	
+  	}, 	
+
+  	// 'hover .js-save'(event, instance){
+  	// 	$(".js-view").click(function(){
+  	// 		$("#karma").hide();
+  	// 		$("#hehe").show();
+  	// 	},
+
+  	// }	 	
 });
 
 Template.mainBody.events({
 	'click .js-view'(event, instance){
 		$("#ViewBook").modal("show")
-		console.log("Viewing...");
-
+		// $('#ViewBook .modal-body').html('<h5 class="title " id="Title">' + litbooksdb.find({_id:myId}).Title '</h5> <h5 class="author" id="Author">' + litbooksdb.find({_id:myId}).Author + '</h5> <p id="Desc">' + litbooksdb.find({_id:myId}).Desc + '</p>'); 
+		console.log("Viewing...");	
 		
-    }
+    },
+
+    'mousemove .js-view'(event, instance){
+  			$("#karma").hide();
+  			$("#hehe").show();
+  		}
 });
 	
