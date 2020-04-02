@@ -14,15 +14,46 @@
 <template name="myLibrary">
   <div class="row">
     {{#each allBooks}}
-      <div class="col-4" id={{_id}}>
-        <div class= "Uniform">
-          <img src="{{Path}}" class="litbooks">
-        </div>
-        <h3>{{Title}}</h3>
-        <h3>{{Author}}</h3>
-      </div>
+      <div class="col-md-4" id={{_id}}>
+            <div class="card mb-4 shadow-sm uniform">
+              <img src={{Path}} alt="temp photo"  class="thumbtemp" >
+              <div class="card-body"> 
+                  <h5 class="card-title">{{Title}}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{Author}}</h6>
+                <p class="card-text descview"></p>
+                {{> ViewThis}}
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary js-view">View</button>
+                    <button type="button" class="btn btn-sm btn-outline-secondary js-edit">Edit</button>
+                 </div>
+                 <i class="fa fa-thumbs-up js-up"></i>
+                 <i class="fa fa-thumbs-down js-down"></i>
+                  <small class="text-muted "><p>Viewed {{counter}} times</p></small>
+                </div>
+              </div>
+            </div>
+          </div> <!-- /col -->
     {{/each}}
-  </div>  
+      <!-- ??? -->
+         
+  <!-- Modal -->
+  <div class="modal fade" id="confirmModal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="staticBackdropLabel">You want to Delete this?</h5>
+        </div>
+        <div class="modal-footer">
+          <input  id="delID" type="hidden">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-primary js-confirm" data-dismiss="modal">Yes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+        <!-- ??? -->
+  </div> <!--Row-->
 </template>
 
 <template name="navBar">
@@ -116,8 +147,7 @@
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary js-close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary js-save" id="karma">Save changes</button>
-        <button type="button" class="btn btn-secondary js-delete" id="hehe">Delete</button>
+        <button type="button" class="btn btn-primary js-save" >Save changes</button>
       </div>
     </div>
   </div>
@@ -133,25 +163,7 @@
     <div class="album py-5 bg-light">
       <div class="container">
         <div class="row">
-          <div class="col-md-4">
-            <div class="card mb-4 shadow-sm">
-              <img src='data:image/svg+xml;charset=UTF-8,<svg%20width%3D"348"%20height%3D"225"%20xmlns%3D"http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg"%20viewBox%3D"0%200%20348%20225"%20preserveAspectRatio%3D"none"><defs><style%20type%3D"text%2Fcss">%23holder_1697acec537%20text%20%7B%20fill%3A%23eceeef%3Bfont-weight%3Abold%3Bfont-family%3AArial%2C%20Helvetica%2C%20Open%20Sans%2C%20sans-serif%2C%20monospace%3Bfont-size%3A17pt%20%7D%20<%2Fstyle><%2Fdefs><g%20id%3D"holder_1697acec537"><rect%20width%3D"348"%20height%3D"225"%20fill%3D"%2355595c"><%2Frect><g><text%20x%3D"116.7265625"%20y%3D"120.3">Thumbnail<%2Ftext><%2Fg><%2Fg><%2Fsvg>' alt="temp photo"  class="thumbtemp" >
-              <div class="card-body">
-                    {{>ViewThis}}
-                  <h5 class="card-title"></h5>
-                    <h6 class="card-subtitle mb-2 text-muted"></h6>
-                <p class="card-text"></p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-sm btn-outline-secondary js-view">View</button>
-                    <button type="button" class="btn btn-sm btn-outline-secondary js-edit">Edit</button>
-                 </div>
-                  <small class="text-muted">9 mins</small>
-                </div>
-              </div>
-            </div>
-          </div> <!-- /col -->
-          
+          {{> myLibrary}} 
         </div> <!-- /row for all cards -->
       </div>
     </div>
@@ -225,11 +237,11 @@
         </button>
       </div>
       <div class="modal-body" >
-
+          
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-primary js-delete">Delete</button>
       </div>
     </div>
   </div>

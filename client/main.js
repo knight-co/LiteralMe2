@@ -9,6 +9,23 @@ global.Popper = popper // fixes some issues with Popper and Meteor
 import './main.html';
 import '../lib/collection.js';
 
+Template.myLibrary.helpers({
+	allBooks(){
+		return litbooksdb.find();	
+	}
+});
+Template.myLibrary.onCreated(function helloOnCreated() {
+  // counter starts at 0
+  this.counter = new ReactiveVar(0);
+});
+
+Template.myLibrary.helpers({
+	counter(){
+		return Template.instance().counter.get();
+	}
+
+})
+
 Template.addBook.events({
 	'click .js-save'(event, instance){
 		var theTitle = $('#Title').val();
@@ -42,28 +59,52 @@ Template.addBook.events({
   		$(".imgholder").attr("src",$("#Path").val());
   		$(".thumbtemp").attr("src",$("#Path").val());
   		console.log($("#Path").val());
-  	}, 	
+  	},
 
-  	// 'hover .js-save'(event, instance){
-  	// 	$(".js-view").click(function(){
-  	// 		$("#karma").hide();
-  	// 		$("#hehe").show();
-  	// 	},
+  	'click .js-confirm'(event,instance){
+  	var myId =$("#delID").val();
+  	$("#"+myId).fadeOut('slow',function(){
+  		literalbooksdb.remove({_id:myId});
+  		console.log(myId);
+  	});
 
-  	// }	 	
+  },
+
 });
 
 Template.mainBody.events({
 	'click .js-view'(event, instance){
-		$("#ViewBook").modal("show")
-		// $('#ViewBook .modal-body').html('<h5 class="title " id="Title">' + litbooksdb.find({_id:myId}).Title '</h5> <h5 class="author" id="Author">' + litbooksdb.find({_id:myId}).Author + '</h5> <p id="Desc">' + litbooksdb.find({_id:myId}).Desc + '</p>'); 
+		$("#ViewBook").modal("show");
+		var myId = this._id;
+		console.log(myId);
+		var viewContent = '<h5 class="title " id="Title">' + litbooksdb.findOne({_id:myId}).Title + '</h5>';
+		viewContent += ' <h5 class="author" id="Author">' + litbooksdb.findOne({_id:myId}).Author + '</h5> ';
+		viewContent += ' <p id="Desc">' + litbooksdb.findOne({_id:myId}).Desc + '</p>';
+		$('#ViewBook .modal-body').html(viewContent); 
 		console.log("Viewing...");	
-		
     },
 
-    'mousemove .js-view'(event, instance){
-  			$("#karma").hide();
-  			$("#hehe").show();
-  		}
 });
 	
+Template.myLibrary.events({
+	'click .js-view'(event, instance) {
+    // increment the counter when button is clicked
+    var myId = this._id;
+    console.log(myId);
+    instance.counter.set(instance.counter.get() + 1);
+    	litbooksdb.findOne({_id:myId})
+  },
+});
+
+Template.ViewThis.events({
+
+	'click .js-delete'(event, instance){
+
+		var myId =this._id;
+		$("#confirmModal").modal("show");
+		$("#delID").val(myId);
+		console.log(myId);
+		litbooksdb.remove({_id:myId});
+	    console.log(myId);  
+	}
+});
