@@ -27,6 +27,10 @@ Template.myLibrary.helpers({
 })
 
 Template.addBook.events({
+	'click .js-addAbook'(event, instance){
+		console.log("Opening modal..")
+	},
+
 	'click .js-save'(event, instance){
 		var theTitle = $('#Title').val();
 		var theAuthor =$('#Author').val();
@@ -42,13 +46,14 @@ Template.addBook.events({
 			"thumbtemp": theThumb
 
 		});
+
 		console.log("saving..");
 	  	$("#addBookModal").modal("hide");
-	  	// $("#Title").val("");
-	  	// $("#Path").val("");
-	    // $("#Desc").val("");
-	  	// $("#Author").val("");
-	  	// $(".imgholder").attr("src","imgplaceholder.png");
+	  	$("#Title").val("");
+	  	$("#Path").val("");
+	    $("#Desc").val("");
+	  	$("#Author").val("");
+	  	$(".imgholder").attr("src","imgplaceholder.png");
 	},
 
 	'click .js-close'(event, instance){
@@ -57,15 +62,15 @@ Template.addBook.events({
 
 	'input #Path'(event,instance){
   		$(".imgholder").attr("src",$("#Path").val());
-  		$(".thumbtemp").attr("src",$("#Path").val());
   		console.log($("#Path").val());
   	},
 
   	'click .js-confirm'(event,instance){
-  	var myId =$("#delID").val();
+  	var myId =$("#delID").val(myId);
+  	myId+= this._id;
   	$("#"+myId).fadeOut('slow',function(){
-  		literalbooksdb.remove({_id:myId});
-  		console.log(myId);
+  	literalbooksdb.remove({_id:myId});
+  	console.log(myId);
   	});
 
   },
@@ -76,12 +81,13 @@ Template.mainBody.events({
 	'click .js-view'(event, instance){
 		$("#ViewBook").modal("show");
 		var myId = this._id;
+		console.log("Viewing...");	
 		console.log(myId);
 		var viewContent = '<h5 class="title " id="Title">' + litbooksdb.findOne({_id:myId}).Title + '</h5>';
 		viewContent += ' <h5 class="author" id="Author">' + litbooksdb.findOne({_id:myId}).Author + '</h5> ';
 		viewContent += ' <p id="Desc">' + litbooksdb.findOne({_id:myId}).Desc + '</p>';
 		$('#ViewBook .modal-body').html(viewContent); 
-		console.log("Viewing...");	
+		
     },
 
 });
@@ -90,9 +96,8 @@ Template.myLibrary.events({
 	'click .js-view'(event, instance) {
     // increment the counter when button is clicked
     var myId = this._id;
-    console.log(myId);
     instance.counter.set(instance.counter.get() + 1);
-    	litbooksdb.findOne({_id:myId})
+    litbooksdb.findOne(this._id).myId;
   },
 });
 
@@ -101,10 +106,10 @@ Template.ViewThis.events({
 	'click .js-delete'(event, instance){
 
 		var myId =this._id;
-		$("#confirmModal").modal("show");
 		$("#delID").val(myId);
-		console.log(myId);
-		litbooksdb.remove({_id:myId});
-	    console.log(myId);  
+		$("#confirmModal").modal("show");
+		// console.log(myId);
+		// litbooksdb.remove({_id:myId});
+		// litbooksdb.remove(this._id);
 	}
 });
