@@ -27,6 +27,7 @@ Template.myLibrary.helpers({
 })
 
 Template.addBook.events({
+	// console for the addBook Modal
 	'click .js-addAbook'(event, instance){
 		console.log("Opening modal..")
 	},
@@ -65,20 +66,12 @@ Template.addBook.events({
   		console.log($("#Path").val());
   	},
 
-  	'click .js-confirm'(event,instance){
-  	var myId =$("#delID").val(myId);
-  	myId+= this._id;
-  	$("#"+myId).fadeOut('slow',function(){
-  	literalbooksdb.remove({_id:myId});
-  	console.log(myId);
-  	});
-
-  },
 
 });
 
 Template.mainBody.events({
 	'click .js-view'(event, instance){
+		
 		$("#ViewBook").modal("show");
 		var myId = this._id;
 		console.log("Viewing...");	
@@ -97,19 +90,80 @@ Template.myLibrary.events({
     // increment the counter when button is clicked
     var myId = this._id;
     instance.counter.set(instance.counter.get() + 1);
-    litbooksdb.findOne(this._id).myId;
+    litbooksdb.findOne({_id:myId});
+
   },
+
+  	'click .js-confirm'(event,instance){
+  	// confirms removal of the id for the element(book)
+  	var myId =$("#delID").val();
+  	$("#"+ myId).fadeOut('slow',function(){
+  	litbooksdb.findOne({_id:myId}) + litbooksdb.remove({_id:myId});
+  	console.log("Deleting Record...")
+  	console.log(myId);
+  	});
+
+  },
+
+  	'click .js-edit'(event, instance) {
+  		// opens edit modal to change the value in the text boxes
+  	$("#editBookModal").modal("show");
+   var myId = this._id;
+   console.log("Let's Edit " +  myId);
+   var edTitle = litbooksdb.findOne({_id:myId}).Title;
+   var edPath = litbooksdb.findOne({_id:myId}).Path;
+   var edDesc = litbooksdb.findOne({_id:myId}).Desc;
+   var edAuthor = litbooksdb.findOne({_id:myId}).Author;
+   $(".edID").val(myId);
+   $("#eTitle").val(edTitle);
+   $("#ePath").val(edPath);
+   $("#eDesc").val(edDesc);
+   $("#eAuthor").val(edAuthor);
+   $(".eholder").attr("src", edPath);
+
+  	},
+
 });
 
 Template.ViewThis.events({
 
 	'click .js-delete'(event, instance){
-
+	// delete a record (book) from the MongoDb
 		var myId =this._id;
 		$("#delID").val(myId);
 		$("#confirmModal").modal("show");
+		$("#ViewBook").modal("hide");
 		// console.log(myId);
 		// litbooksdb.remove({_id:myId});
 		// litbooksdb.remove(this._id);
+	}
+});
+
+Template.editBook.events({
+	'click .js-saveEdit'(event,instance){
+	// save a new edit record and will change the data in the DB
+		var newTitle = $("#eTitle").val();
+		var newPath = $("#ePath").val();
+		var newDesc = $("#eDesc").val();
+		var newAuthor = $("#eAuthor").val();
+		var updateId = $("#edID").val();
+		console.log(newTitle);
+
+		litbooksdb.update({_id: updateId},
+			{$set:{
+				"eTitle":newTitle,
+				"ePath":newPath,
+				"eDesc":newDesc,
+				"eAuthor":newAuthor,
+				"#edID":updateId
+
+			}}
+		);
+	},
+
+	'click .js-closeEdit'(event, instance){
+		// Console message confirming the modal was closed
+		console.log("closingEdit..")
+
 	}
 });

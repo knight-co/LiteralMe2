@@ -22,6 +22,7 @@
                     <h6 class="card-subtitle mb-2 text-muted">{{Author}}</h6>
                 <p class="card-text descview"></p>
                 {{> ViewThis}}
+                {{> editBook}}
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group">
                     <button type="button" class="btn btn-sm btn-outline-secondary js-view">View</button>
@@ -45,7 +46,7 @@
           <h5 class="modal-title" id="staticBackdropLabel">You want to Delete this?</h5>
         </div>
         <div class="modal-footer">
-          <input  id="delID" type="text" value=" ">
+          <input  id="delID" type="text">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
           <button type="button" class="btn btn-primary js-confirm" data-dismiss="modal">Yes</button>
         </div>
@@ -130,9 +131,9 @@
             </div>
             <input type="text" class="form-control" id="Author" placeholder="Provide an Author"  aria-label="Sizing example input" aria-describedby="basic-addon1">
           </div> <!-- Author -->
-                    <div class="input-group input-group-lg mb-3">
+                    <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-lg">Description</span>
+              <span class="input-group-text" id="basic-addon1">Description</span>
             </div>
             <input type="text" class="form-control" id="Desc" aria-label="Provide a Description" aria-describedby="basic-addon1">
           </div> <!-- Description -->
@@ -147,7 +148,7 @@
         </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary js-close" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary js-save" >Save changes</button>
+        <button type="button" class="btn btn-primary js-save" >Save!</button>
       </div>
     </div>
   </div>
@@ -197,7 +198,7 @@
           <input type="text" class="form-control" id="eAuthor" placeholder="Provide an Author" aria-label="Provide an Author" aria-describedby="basic-addon1">
         </div><!-- Author-->
             <div class="input-group">
-                <div class="input-group-prepend">
+                <div class="input-group-prepend mb-3">
                   <span class="input-group-text">Description</span>
                 </div>
                 <textarea class="form-control" id="eDesc" aria-label="Provide a Description"></textarea>
@@ -211,8 +212,8 @@
               <input id="edID" type="text">
       </div> <!--Modal Body-->
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary js-closeMe" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary js-addMe">Save changes</button>
+        <button type="button" class="btn btn-secondary js-closeEdit" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary js-saveEdit">Save changes</button>
       </div> <!--Save changes and close-->
     </div>
   </div>
@@ -226,7 +227,7 @@
       <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalScrollableTitle">View Menu</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>

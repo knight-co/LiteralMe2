@@ -13,28 +13,13 @@ body {
 	overflow: hidden;
 }
 
-.edcolor{
-	color:blue;
-	font-size: 3em;
-}
-
-.vcolor{
-	color:purple;
-	font-size: 3em;
-}
-.Desc{
-
-	height: 200px;
-	width:50%;
-	background-color: rgb(195, 255, 217);
-
-	::-webkit-scrollbar{
-  width: 10px;
-}
-}
-
 .thumbtemp{
 
 	width:350px;
 	height: 430px;
+}
+
+.eholder{
+	margin-bottom: 10px;
+	height:250px;
 }
