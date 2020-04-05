@@ -21,7 +21,7 @@ Template.myLibrary.onCreated(function helloOnCreated() {
 
 Template.myLibrary.helpers({
 	counter(){
-		return Template.instance().counter.get();
+		return Template.instance(this._id).counter.get();
 	}
 
 })
@@ -89,8 +89,8 @@ Template.myLibrary.events({
 	'click .js-view'(event, instance) {
     // increment the counter when button is clicked
     var myId = this._id;
-    instance.counter.set(instance.counter.get() + 1);
-    litbooksdb.findOne({_id:myId});
+    instance.counter.set(instance.counter.get(this._id) + 1);
+    litbooksdb.findOne(myId);
 
   },
 
@@ -122,6 +122,13 @@ Template.myLibrary.events({
    $(".eholder").attr("src", edPath);
 
   	},
+
+  	'click .js-up'(event, instance){
+  		// Provides a rating for the book
+  		var myId = this._id;
+  		var upvote = $("#thup").val();
+  		
+  	}
 
 });
 

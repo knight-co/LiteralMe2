@@ -28,10 +28,16 @@
                     <button type="button" class="btn btn-sm btn-outline-secondary js-view">View</button>
                     <button type="button" class="btn btn-sm btn-outline-secondary js-edit">Edit</button>
                  </div>
-                 <i class="fa fa-thumbs-up js-up"></i>
-                 <i class="fa fa-thumbs-down js-down"></i>
-                  <small class="text-muted "><p>Viewed {{counter}} times</p></small>
+                    <div class="col-9">
+                     <button><i class="fa fa-thumbs-up js-up"></i></button>
+                     <input type="text" id="thup" class="thump">
+                     <button><i class="fa fa-thumbs-down js-down"></i></button>
+                     <input type="text" id="thdown" class="thown">
+                   </div>
                 </div>
+                  <div class="col-md-7">
+                    <small class="text-muted "><p>Viewed {{counter}} times</p></small>
+                  </div>
               </div>
             </div>
           </div> <!-- /col -->
