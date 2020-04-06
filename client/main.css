@@ -1,6 +1,7 @@
 body {
   padding: 10px;
   font-family: sans-serif;
+  
 }
 
 .imgholder{
@@ -15,7 +16,7 @@ body {
 
 .thumbtemp{
 
-	width:350px;
+	width:348px;
 	height: 430px;
 }
 
@@ -32,4 +33,8 @@ body {
 .thown{
 	width:30px;
 
+}
+
+.Darker{
+	color: green;
 }

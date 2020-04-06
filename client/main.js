@@ -96,9 +96,10 @@ Template.myLibrary.events({
 
   	'click .js-confirm'(event,instance){
   	// confirms removal of the id for the element(book)
+  	myId+= this._id;
   	var myId =$("#delID").val();
   	$("#"+ myId).fadeOut('slow',function(){
-  	litbooksdb.findOne({_id:myId}) + litbooksdb.remove({_id:myId});
+    litbooksdb.remove({_id:myId});
   	console.log("Deleting Record...")
   	console.log(myId);
   	});
@@ -114,7 +115,8 @@ Template.myLibrary.events({
    var edPath = litbooksdb.findOne({_id:myId}).Path;
    var edDesc = litbooksdb.findOne({_id:myId}).Desc;
    var edAuthor = litbooksdb.findOne({_id:myId}).Author;
-   $(".edID").val(myId);
+   var editID = litbooksdb.findOne({_id:myId}).ediD;
+   $("#ediD").val(myId);
    $("#eTitle").val(edTitle);
    $("#ePath").val(edPath);
    $("#eDesc").val(edDesc);
@@ -128,41 +130,37 @@ Template.myLibrary.events({
   		var myId = this._id;
   		var upvote = $("#thup").val();
   		
-  	}
-
-});
-
-Template.ViewThis.events({
+  	},
 
 	'click .js-delete'(event, instance){
 	// delete a record (book) from the MongoDb
 		var myId =this._id;
-		$("#delID").val(myId);
+		var editID = litbooksdb.findOne({_id:myId}).ediD;
 		$("#confirmModal").modal("show");
+		$("#delID").val(myId);
 		$("#ViewBook").modal("hide");
 		// console.log(myId);
 		// litbooksdb.remove({_id:myId});
 		// litbooksdb.remove(this._id);
-	}
-});
+	},
 
-Template.editBook.events({
 	'click .js-saveEdit'(event,instance){
 	// save a new edit record and will change the data in the DB
+
+		var updateId = this._id;
 		var newTitle = $("#eTitle").val();
 		var newPath = $("#ePath").val();
 		var newDesc = $("#eDesc").val();
 		var newAuthor = $("#eAuthor").val();
-		var updateId = $("#edID").val();
+		var updateId = $("#ediD").val();
 		console.log(newTitle);
+			litbooksdb.update({_id:updateId},
+				{$set:{
+					"Title":newTitle,
+					"Path":newPath,
+					"Desc":newDesc,
+					"Author":newAuthor,
 
-		litbooksdb.update({_id: updateId},
-			{$set:{
-				"eTitle":newTitle,
-				"ePath":newPath,
-				"eDesc":newDesc,
-				"eAuthor":newAuthor,
-				"#edID":updateId
 
 			}}
 		);
