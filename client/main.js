@@ -10,6 +10,7 @@ import './main.html';
 import '../lib/collection.js';
 
 Template.myLibrary.helpers({
+	// returns all the books in the database based on ID and Path
 	allBooks(){
 		return litbooksdb.find();	
 	}
@@ -29,10 +30,10 @@ Template.myLibrary.helpers({
 Template.addBook.events({
 	// console for the addBook Modal
 	'click .js-addAbook'(event, instance){
-		console.log("Opening modal..")
 	},
-
+	
 	'click .js-save'(event, instance){
+	// saving to the MongoDB
 		var theTitle = $('#Title').val();
 		var theAuthor =$('#Author').val();
 		var theDesc =$('#Desc').val();
@@ -47,8 +48,6 @@ Template.addBook.events({
 			"thumbtemp": theThumb
 
 		});
-
-		console.log("saving..");
 	  	$("#addBookModal").modal("hide");
 	  	$("#Title").val("");
 	  	$("#Path").val("");
@@ -58,7 +57,7 @@ Template.addBook.events({
 	},
 
 	'click .js-close'(event, instance){
-		console.log("closed..");
+		// closing 
 	},
 
 	'input #Path'(event,instance){
@@ -71,18 +70,17 @@ Template.addBook.events({
 
 Template.mainBody.events({
 	'click .js-view'(event, instance){
-		
+		// Opens the view modal and returns author, title and description of the book
 		$("#ViewBook").modal("show");
 		var myId = this._id;
-		console.log("Viewing...");	
-		console.log(myId);
 		var viewContent = '<h5 class="title " id="Title">' + litbooksdb.findOne({_id:myId}).Title + '</h5>';
 		viewContent += ' <h5 class="author" id="Author">' + litbooksdb.findOne({_id:myId}).Author + '</h5> ';
 		viewContent += ' <p id="Desc">' + litbooksdb.findOne({_id:myId}).Desc + '</p>';
 		$('#ViewBook .modal-body').html(viewContent); 
-		
-    },
 
+	
+    },
+		
 });
 	
 Template.myLibrary.events({
@@ -94,14 +92,21 @@ Template.myLibrary.events({
 
   },
 
+  'click .js-delete'(event, instance){
+	// delete a record (book) from the MongoDb
+		var myId= this._id;
+		$("#delID").val(myId);
+		$("#confirmModal").modal("show");
+		$("#ViewBook").modal("hide");
+		
+	},
+
   	'click .js-confirm'(event,instance){
   	// confirms removal of the id for the element(book)
-  	myId+= this._id;
   	var myId =$("#delID").val();
   	$("#"+ myId).fadeOut('slow',function(){
     litbooksdb.remove({_id:myId});
-  	console.log("Deleting Record...")
-  	console.log(myId);
+  	
   	});
 
   },
@@ -110,7 +115,6 @@ Template.myLibrary.events({
   		// opens edit modal to change the value in the text boxes
   	$("#editBookModal").modal("show");
    var myId = this._id;
-   console.log("Let's Edit " +  myId);
    var edTitle = litbooksdb.findOne({_id:myId}).Title;
    var edPath = litbooksdb.findOne({_id:myId}).Path;
    var edDesc = litbooksdb.findOne({_id:myId}).Desc;
@@ -132,18 +136,6 @@ Template.myLibrary.events({
   		
   	},
 
-	'click .js-delete'(event, instance){
-	// delete a record (book) from the MongoDb
-		var myId =this._id;
-		var editID = litbooksdb.findOne({_id:myId}).ediD;
-		$("#confirmModal").modal("show");
-		$("#delID").val(myId);
-		$("#ViewBook").modal("hide");
-		// console.log(myId);
-		// litbooksdb.remove({_id:myId});
-		// litbooksdb.remove(this._id);
-	},
-
 	'click .js-saveEdit'(event,instance){
 	// save a new edit record and will change the data in the DB
 
@@ -153,7 +145,6 @@ Template.myLibrary.events({
 		var newDesc = $("#eDesc").val();
 		var newAuthor = $("#eAuthor").val();
 		var updateId = $("#ediD").val();
-		console.log(newTitle);
 			litbooksdb.update({_id:updateId},
 				{$set:{
 					"Title":newTitle,
