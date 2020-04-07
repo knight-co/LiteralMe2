@@ -25,13 +25,13 @@ Template.myLibrary.helpers({
 		return Template.instance(this._id).counter.get();
 	}
 
-})
+});
 
 Template.addBook.events({
 	// console for the addBook Modal
 	'click .js-addAbook'(event, instance){
 	},
-	
+
 	'click .js-save'(event, instance){
 	// saving to the MongoDB
 		var theTitle = $('#Title').val();
@@ -87,7 +87,7 @@ Template.myLibrary.events({
 	'click .js-view'(event, instance) {
     // increment the counter when button is clicked
     var myId = this._id;
-    instance.counter.set(instance.counter.get(this._id) + 1);
+    instance.counter.set(instance.counter.get() + 1);
     litbooksdb.findOne(myId);
 
   },
