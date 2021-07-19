@@ -8,7 +8,6 @@ global.Popper = popper // fixes some issues with Popper and Meteor
 
 import './main.html';
 import '../lib/collection.js';
-
 Template.myLibrary.helpers({
 	// returns all the books in the database based on ID and Path
 	allBooks(){

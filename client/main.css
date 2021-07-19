@@ -1,6 +1,7 @@
 body {
-  padding: 10px;
-  font-family: sans-serif;
+  padding: 15px;
+  font-family:'Times New Roman', Times, serif;
+  background-color: aqua !important;
   
 }
 
@@ -35,6 +36,6 @@ body {
 
 }
 
-.Darker{
-	color: green;
+.ht{
+	color: rgb(4, 238, 255);
 }
