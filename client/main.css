@@ -1,7 +1,8 @@
-body {
+body 
+{
   padding: 15px;
-  font-family:'Times New Roman', Times, serif;
-  background-color: aqua !important;
+  font-family:Arial, Helvetica, sans-serif;
+  background-color: rgb(195, 0, 255) !important;
   
 }
 
@@ -36,6 +37,6 @@ body {
 
 }
 
-.ht{
-	color: rgb(4, 238, 255);
+.ty{
+	color:  rgb(195, 0, 255);
 }
